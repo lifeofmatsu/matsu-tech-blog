@@ -8,5 +8,5 @@ module.exports = {
   homeController,
   userController,
   postController,
-  commentController,
+  commentController
 };

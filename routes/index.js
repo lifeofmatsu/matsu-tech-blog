@@ -1,8 +1,7 @@
-// routes/index.js
 const homeRoutes = require('./homeRoutes');
-const apiRoutes = require('./api'); // This will automatically look for an index.js inside the api folder
+const apiRoutes = require('./api');
 
 module.exports = {
   homeRoutes,
-  apiRoutes,
+  apiRoutes
 };

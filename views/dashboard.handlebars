@@ -1,0 +1,18 @@
+<h2>Your Dashboard</h2>
+
+{{#if posts}}
+    <section>
+        {{#each posts as |post|}}
+            <article>
+                <h3>{{post.title}}</h3>
+                <p>{{truncateText post.content 200}}</p>
+                <p>Posted on {{formatDate post.createdAt}}</p>
+                <a href="/posts/edit/{{post.id}}">Edit</a>
+            </article>
+        {{/each}}
+    </section>
+{{else}}
+    <p>You haven't posted anything yet.</p>
+{{/if}}
+
+<a href="/posts/new">Create New Post</a>

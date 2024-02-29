@@ -4,5 +4,3 @@ const Handlebars = require('handlebars');
 Handlebars.registerHelper('formatDate', (date) => {
   return new Date(date).toLocaleDateString("en-US");
 });
-
-
