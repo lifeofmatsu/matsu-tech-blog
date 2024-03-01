@@ -19,7 +19,11 @@ const commentController = {
 
 	// Make edits to a comment. Verify the user owns the comment.
 	updateComment: async (req, res) => {
+		try {
 
+		} catch (error) {
+
+		}
 	},
 
 	// Delete a comment
@@ -42,8 +46,6 @@ const commentController = {
 			res.status(500).json({ error: 'Failed to delete comment' });
 		}
 	}
-
-	// Additional comment-related methods...
 };
 
 module.exports = commentController;

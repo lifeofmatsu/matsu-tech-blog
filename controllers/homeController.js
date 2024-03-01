@@ -1,4 +1,4 @@
-const { Comment, Post, User } = require('../models');
+const { User, Post, Comment } = require('../models');
 
 
 const homeController = {
