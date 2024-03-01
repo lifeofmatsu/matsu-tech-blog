@@ -1,4 +1,3 @@
-// controllers/index.js
 const homeController = require('./homeController');
 const userController = require('./userController');
 const postController = require('./postController');
