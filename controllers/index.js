@@ -1,7 +1,7 @@
 const homeController = require('./homeController');
-const userController = require('./userController');
-const postController = require('./postController');
-const commentController = require('./commentController');
+const userController = require('./api/userController');
+const postController = require('./api/postController');
+const commentController = require('./api/commentController');
 
 module.exports = {
   homeController,

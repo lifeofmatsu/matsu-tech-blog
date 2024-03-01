@@ -1,5 +1,5 @@
 const { Model, DataTypes } = require('sequelize');
-const sequelize = require('../config/config');
+const sequelize = require('../config/connection');
 const bcrypt = require('bcrypt');
 
 class User extends Model {
@@ -21,7 +21,6 @@ User.init(
 			allowNull: false
 		},
 		email: {
-			// Added from the second version
 			type: DataTypes.STRING,
 			allowNull: false,
 			unique: true,
