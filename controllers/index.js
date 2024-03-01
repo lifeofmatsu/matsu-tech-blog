@@ -4,8 +4,8 @@ const postController = require('./api/postController');
 const commentController = require('./api/commentController');
 
 module.exports = {
-  homeController,
-  userController,
-  postController,
-  commentController
+	homeController,
+	userController,
+	postController,
+	commentController
 };

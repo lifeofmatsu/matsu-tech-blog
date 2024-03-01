@@ -1,8 +1,7 @@
-const User = require('../models/User'); // Importing the User model
+const User = require('../../models/User');
 
 const userController = {
-	// Create a new user
-	createUser: async (req, res) => {
+	createUser: async (req, res) => { // Create a new user
 		try {
 			const newUser = await User.create(req.body); // Assuming req.body is already validated and sanitized
 			res.status(201).json(newUser);
@@ -11,11 +10,30 @@ const userController = {
 			res.status(400).json({ error: 'Error creating user' });
 		}
 	},
-
-	// Get user details
-	getUser: async (req, res) => {
+	loginUser: async (req, res) => { // LOGIN user
 		try {
-			const user = await User.findByPk(req.params.id); // Finding a user by primary key/id
+
+		} catch (error) {
+
+		}
+	},
+	logoutUser: async (req, res) => { // LOGOUT user
+		try {
+
+		} catch (error) {
+
+		}
+	},
+	getUsers: async (req, res) => { // GET ALL users
+		try {
+
+		} catch (error) {
+
+		}
+	},
+	getUserById: async (req, res) => { // GET user by id
+		try {
+			const user = await User.findByPk(req.params.id);
 			if (user) {
 				res.json(user);
 			} else {
@@ -25,9 +43,21 @@ const userController = {
 			console.error('Error fetching user:', error);
 			res.status(500).json({ error: 'Error fetching user' });
 		}
-	}
+	},
+	updateUser: async (req, res) => {
+		try {
 
-	// Additional methods for other user-related API routes
+		} catch (error) {
+
+		}
+	},
+	deleteUser: async (req, res) => {
+		try {
+
+		} catch (error) {
+
+		}
+	}
 };
 
 module.exports = userController;
