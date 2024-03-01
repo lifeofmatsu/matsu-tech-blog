@@ -1,5 +1,6 @@
 const { Comment, Post, User } = require('../models');
 
+
 const homeController = {
 	index: async (req, res) => { // Method to display the homepage
 		try {
@@ -10,7 +11,7 @@ const homeController = {
 			res.status(500).send('Error fetching posts');
 		}
 	},
-	
+
     dashboard: async (req, res) => { // Method to display the dashboard
         // ...
     }

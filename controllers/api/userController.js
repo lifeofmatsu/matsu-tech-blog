@@ -1,4 +1,5 @@
-const User = require('../../models/User');
+const { User } = require('../../models');
+
 
 const userController = {
 	createUser: async (req, res) => { // Create a new user
@@ -56,7 +57,7 @@ const userController = {
 
 		}
 	},
-	
+
 	deleteUser: async (req, res) => {
 		try {
 
