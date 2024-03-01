@@ -10,6 +10,7 @@ const userController = {
 			res.status(400).json({ error: 'Error creating user' });
 		}
 	},
+
 	loginUser: async (req, res) => { // LOGIN user
 		try {
 
@@ -17,6 +18,7 @@ const userController = {
 
 		}
 	},
+
 	logoutUser: async (req, res) => { // LOGOUT user
 		try {
 
@@ -24,6 +26,7 @@ const userController = {
 
 		}
 	},
+
 	getUsers: async (req, res) => { // GET ALL users
 		try {
 
@@ -31,6 +34,7 @@ const userController = {
 
 		}
 	},
+
 	getUserById: async (req, res) => { // GET user by id
 		try {
 			const user = await User.findByPk(req.params.id);
@@ -44,6 +48,7 @@ const userController = {
 			res.status(500).json({ error: 'Error fetching user' });
 		}
 	},
+
 	updateUser: async (req, res) => {
 		try {
 
@@ -51,6 +56,7 @@ const userController = {
 
 		}
 	},
+	
 	deleteUser: async (req, res) => {
 		try {
 
