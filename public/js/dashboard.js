@@ -1,27 +1,39 @@
 document.addEventListener('DOMContentLoaded', () => {
-    const newPostForm = document.querySelector('#new-post-form');
+	const newPostButton = document.querySelector('#newPostButton');
+    const newPostForm = document.querySelector('#newPostForm');
+    const postHistoryButton = document.querySelector('#editPostButton');
 
-    newPostForm.addEventListener('submit', async (event) => {
-        event.preventDefault();
+    // Listens for button click to display new blog post form
+	newPostButton.addEventListener('click', () => {
+		const form = document.getElementById('newPostForm');
+		if (form.style.display === 'none') {
+			form.style.display = 'block';
+		} else {
+			form.style.display = 'none';
+		}
+	});
 
-        // Assuming your form has title and content input fields
-        const title = document.querySelector('#post-title').value.trim();
-        const content = document.querySelector('#post-content').value.trim();
+    // Listens for blog post form submission to create new post
+	newPostForm.addEventListener('submit', async (event) => {
+		event.preventDefault();
 
-        if (title && content) {
-            const response = await fetch('/api/posts', {
-                method: 'POST',
-                body: JSON.stringify({ title, content }),
-                headers: { 'Content-Type': 'application/json' },
-            });
+		const title = document.querySelector('#post-title').value.trim();
+		const content = document.querySelector('#post-content').value.trim();
 
-            if (response.ok) {
-                document.location.reload();
-            } else {
-                alert('Failed to create post.');
-            }
-        }
-    });
+		if (title && content) {
+			const response = await fetch('/api/posts', {
+				method: 'POST',
+				body: JSON.stringify({ title, content }),
+				headers: { 'Content-Type': 'application/json' }
+			});
 
-    // Additional event listeners for edit/delete actions can be added here
+			if (response.ok) {
+				document.location.reload();
+			} else {
+				alert('Failed to create post.');
+			}
+		}
+	});
+
+	// Additional event listeners for edit/delete actions can be added here
 });

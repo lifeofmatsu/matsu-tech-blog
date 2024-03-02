@@ -9,7 +9,7 @@ const postController = {
 		} catch (error) {
 			console.error('Error fetching posts:', error);
 			res.status(500).json({
-				error: 'Something went wrong and we are unable to process your request at this time. Please try again later.'
+				error: 'Something went wrong! We are unable to process your request at this time. Please try again later.'
 			});
 		}
 	},

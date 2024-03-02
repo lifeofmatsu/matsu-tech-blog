@@ -1,18 +1,13 @@
-<h2>Your Dashboard</h2>
+<button id="newPostButton">Create New Post</button>
 
-{{#if posts}}
-    <section>
-        {{#each posts as |post|}}
-            <article>
-                <h3>{{post.title}}</h3>
-                <p>{{truncateText post.content 200}}</p>
-                <p>Posted on {{formatDate post.createdAt}}</p>
-                <a href="/posts/edit/{{post.id}}">Edit</a>
-            </article>
-        {{/each}}
-    </section>
-{{else}}
-    <p>You haven't posted anything yet.</p>
-{{/if}}
+<form id="newPostForm" style="display: none;">
+    <label for="post-title">Title:</label>
+    <input type="text" id="post-title" name="title" required>
+    
+    <label for="post-content">Content:</label>
+    <textarea id="post-content" name="content" required></textarea>
+    
+    <button type="submit">Submit Post</button>
+</form>
 
-<a href="/posts/new">Create New Post</a>
+<script src="../public/js/dashboard.js"></script>
