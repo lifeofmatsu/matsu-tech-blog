@@ -8,5 +8,8 @@ router.get('/', homeController.index);
 // Retrieve dashboard for display
 router.get('/', homeController.dashboard);
 
+// Retrieve login page for display
+router.get('/', homeController.login);
+
 
 module.exports = router;

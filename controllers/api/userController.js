@@ -1,58 +1,6 @@
 const { User } = require('../../models');
 
-
 const userController = {
-	createUser: async (req, res) => {
-		try {
-			const hashedPassword = await bcrypt.hash(req.body.password, 10);
-			const newUser = await User.create({
-				...req.body,
-				password: hashedPassword
-			});
-			res.status(201).json(newUser);
-		} catch (error) {
-			console.error('Error creating user:', error);
-			res.status(400).json({ error: 'Error creating user' });
-		}
-	},
-
-	loginUser: async (req, res) => {
-		try {
-			const user = await User.findOne({
-				where: { email: req.body.email }
-			});
-			if (!user) {
-				return res.status(401).json({ error: 'Login failed' });
-			}
-
-			const isValidPassword = await bcrypt.compare(
-				req.body.password,
-				user.password
-			);
-			if (!isValidPassword) {
-				return res.status(401).json({ error: 'Login failed' });
-			}
-
-			// Assuming you have session management set up
-			req.session.userId = user.id;
-			res.json({ message: 'Login successful' });
-		} catch (error) {
-			console.error('Error logging in:', error);
-			res.status(500).json({ error: 'Error logging in' });
-		}
-	},
-
-	logoutUser: async (req, res) => {
-		try {
-			// Assuming you are using session
-			req.session.destroy();
-			res.json({ message: 'Logout successful' });
-		} catch (error) {
-			console.error('Error logging out:', error);
-			res.status(500).json({ error: 'Error logging out' });
-		}
-	},
-
 	getUsers: async (req, res) => {
 		try {
 			const users = await User.findAll();
@@ -75,6 +23,64 @@ const userController = {
 		} catch (error) {
 			console.error('Error fetching user:', error);
 			res.status(500).json({ error: 'Error fetching user' });
+		}
+	},
+
+	createUser: async (req, res) => {
+		try {
+			const hashedPassword = await bcrypt.hash(req.body.password, 10);
+			const newUser = await User.create({
+				...req.body,
+				password: hashedPassword
+			});
+			res.status(201).json(newUser);
+		} catch (error) {
+			console.error('Error creating user:', error);
+			res.status(400).json({ error: 'Error creating user' });
+		}
+	},
+
+	loginUser: async (req, res) => {
+		try {
+			let user;
+			if (req.body.login.includes('@')) {
+				// User is logging in with email
+				user = await User.findOne({ where: { email: req.body.login } });
+			} else {
+				// User is logging in with username
+				user = await User.findOne({
+					where: { username: req.body.login }
+				});
+			}
+
+			if (!user) {
+				return res.status(401).json({ error: 'Login failed' });
+			}
+
+			const isValidPassword = await bcrypt.compare(
+				req.body.password,
+				user.password
+			);
+			if (!isValidPassword) {
+				return res.status(401).json({ error: 'Login failed' });
+			}
+
+			req.session.userId = user.id;
+			res.json({ message: 'Login successful' });
+		} catch (error) {
+			console.error('Error logging in:', error);
+			res.status(500).json({ error: 'Error logging in' });
+		}
+	},
+
+	logoutUser: async (req, res) => {
+		try {
+			// Assuming you are using session
+			req.session.destroy();
+			res.json({ message: 'Logout successful' });
+		} catch (error) {
+			console.error('Error logging out:', error);
+			res.status(500).json({ error: 'Error logging out' });
 		}
 	},
 

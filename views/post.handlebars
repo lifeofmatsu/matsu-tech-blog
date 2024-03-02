@@ -16,7 +16,7 @@
         <p>No comments yet.</p>
     {{/if}}
     {{#if loggedIn}}
-        <form action="/routes/api/commentRoutes.js" method="POST">
+        <form action="/api/comments/createComment" method="POST">
             <textarea name="content" placeholder="Leave a comment"></textarea>
             <input type="hidden" name="postId" value="{{post.id}}">
             <button type="submit">Submit</button>

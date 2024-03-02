@@ -1,5 +1,6 @@
 const { User, Post, Comment } = require('../models');
 
+
 const homeController = {
 	index: async (req, res) => {
 		// Method to display the homepage
