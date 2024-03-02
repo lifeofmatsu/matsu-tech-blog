@@ -98,7 +98,7 @@ const userData = [
 ];
 
 const seedUsers = () => User.bulkCreate(userData, {
-    individualHooks: true, // Ensure that model-level hooks are respected (e.g., authentication hooks)
+    individualHooks: true, // Instructs that model-level hooks be respected (e.g., authentication hooks)
 });
 
 module.exports = seedUsers;

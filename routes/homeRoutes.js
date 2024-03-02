@@ -6,6 +6,7 @@ const { homeController } = require('../controllers');
 router.get('/', homeController.index);
 
 // Retrieve dashboard for display
+router.get('/', homeController.dashboard);
 
 
 module.exports = router;

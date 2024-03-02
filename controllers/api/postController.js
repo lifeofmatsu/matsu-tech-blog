@@ -2,22 +2,29 @@ const { Post } = require('../../models');
 
 
 const postController = {
-
 	getPosts: async (req, res) => {
-		try {
+        try {
+            const posts = await Post.findAll();
+            res.json(posts);
+        } catch (error) {
+            console.error('Error fetching posts:', error);
+            res.status(500).json({ error: 'Something went wrong and we are unable to process your request at this time. Please try again later.' });
+        }
+    },
 
-		} catch (error) {
-			res.status(500).json({ error: 'Something went wrong and we are unable to process your request at this time. Please try again later.' });
-		}
-	},
-
-	getPostById: async (req, res) => {
-		try {
-
-		} catch (error) {
-			res.status(404).json({ error: 'Could not find the post you are looking for. Please confirm that you have the correct ID and try again.' });
-		}
-	},
+    getPostById: async (req, res) => {
+        try {
+            const post = await Post.findByPk(req.params.id);
+            if (post) {
+                res.json(post);
+            } else {
+                res.status(404).json({ error: 'Could not find the post you are looking for. Please confirm that you have the correct ID and try again.' });
+            }
+        } catch (error) {
+            console.error('Error fetching post:', error);
+            res.status(500).json({ error: 'Failed to fetch post' });
+        }
+    },
 
 	// Create a new post
 	createPost: async (req, res) => {
@@ -36,13 +43,24 @@ const postController = {
 
 	// Make edits to a post
 	updatePost: async (req, res) => {
-		try {
-			/* TODO */
-		} catch (error) {
-			console.error('Error editing post:', error);
-			res.status(500).json({ error: 'Failed to save edits to post' });
-		}
-	},
+        try {
+            const updatedPost = await Post.update(req.body, {
+                where: {
+                    id: req.params.id,
+                    userId: req.session.userId
+                }
+            });
+
+            if (updatedPost[0] > 0) {
+                res.json({ message: 'Post updated' });
+            } else {
+                res.status(404).json({ error: 'Post not found or user not authorized' });
+            }
+        } catch (error) {
+            console.error('Error updating post:', error);
+            res.status(500).json({ error: 'Failed to update post' });
+        }
+    },
 
 	// Delete a post
 	deletePost: async (req, res) => {
@@ -54,11 +72,11 @@ const postController = {
 				}
 			});
 
-			if (!deletedPost) {
-				return res.status(404).json({ error: 'Post not found or user not authorized' });
-			}
-
-			res.json({ message: 'Post deleted' });
+			if (deletedPost) {
+                res.json({ message: 'Post deleted' });
+            } else {
+                res.status(404).json({ error: 'Post not found or user not authorized' });
+            }
 		} catch (error) {
 			console.error('Error deleting post:', error);
 			res.status(500).json({ error: 'Failed to delete post' });

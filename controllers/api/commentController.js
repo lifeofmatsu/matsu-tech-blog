@@ -19,12 +19,24 @@ const commentController = {
 
 	// Make edits to a comment. Verify the user owns the comment.
 	updateComment: async (req, res) => {
-		try {
+        try {
+            const updatedComment = await Comment.update(req.body, {
+                where: {
+                    id: req.params.id,
+                    userId: req.session.userId
+                }
+            });
 
-		} catch (error) {
-
-		}
-	},
+            if (updatedComment[0] > 0) {
+                res.json({ message: 'Comment updated' });
+            } else {
+                res.status(404).json({ error: 'Comment not found or user not authorized' });
+            }
+        } catch (error) {
+            console.error('Error updating comment:', error);
+            res.status(500).json({ error: 'Failed to update comment' });
+        }
+    },
 
 	// Delete a comment
 	deleteComment: async (req, res) => {
@@ -36,11 +48,11 @@ const commentController = {
 				}
 			});
 
-			if (!deletedComment) {
-				return res.status(404).json({ error: 'Comment not found or user not authorized' });
-			}
-
-			res.json({ message: 'Comment deleted' });
+			if (deletedComment) {
+                res.json({ message: 'Comment deleted' });
+            } else {
+                res.status(404).json({ error: 'Comment not found or user not authorized' });
+            }
 		} catch (error) {
 			console.error('Error deleting comment:', error);
 			res.status(500).json({ error: 'Failed to delete comment' });
