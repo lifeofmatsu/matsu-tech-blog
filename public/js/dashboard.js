@@ -1,13 +1,14 @@
 document.addEventListener('DOMContentLoaded', () => {
-	// Select the new post form and the button for creating a new post
 	const newPostForm = document.querySelector('#newPostForm');
 	const newPostButton = document.querySelector('#newPostButton');
     const editPostForm = document.querySelectorAll('.editPostForm');
+    const deletePostButton = document.querySelector('#deletePostButton');
 
-	// Add a click event listener to the new post button
+	// On click event, generate a blank blog post form 
 	newPostButton.addEventListener('click', () => {
-		// Toggle the display of the new post form when the button is clicked
 		const form = document.getElementById('newPostForm');
+
+        // Toggle visibility of new blog post form
 		if (form.style.display === 'none') {
 			form.style.display = 'block';
 		} else {
@@ -15,16 +16,15 @@ document.addEventListener('DOMContentLoaded', () => {
 		}
 	});
 
-	// Add a submit event listener to the new post form
+	// On submit event, send server request to POST the new blog post
 	newPostForm.addEventListener('submit', async (event) => {
-		// Prevent the default form submission behavior
 		event.preventDefault();
 
-		// Retrieve the title and content from the form, trimming whitespace
+		// Retrieve `title` and `content` from blog post; trim whitespace
 		const title = document.querySelector('#post-title').value.trim();
 		const content = document.querySelector('#post-content').value.trim();
 
-		// Check if both title and content are provided
+		// If both `title` and `content` are provided
 		if (title && content) {
 			// Send a POST request to the server to create a new post
 			const response = await fetch('/api/posts', {
@@ -33,21 +33,18 @@ document.addEventListener('DOMContentLoaded', () => {
 				headers: { 'Content-Type': 'application/json' }
 			});
 
-			// Reload the page to show the new post if the request was successful
+			// Reload page to reflect that blog post was created successfully
 			if (response.ok) {
 				document.location.reload();
 			} else {
-				// Alert the user if there was an error creating the post
 				alert('Failed to create post.');
 			}
 		}
 	});
-
-	// Toggles the edit form for a specific post. Called on client side in `blogThumbnail`
+	
 	window.toggleEditForm = (postId) => {
-		// Select the edit form for the post using its postId
 		const form = document.getElementById(`editPostForm-${postId}`);
-		// Toggle the display of the form
+
         if (form.style.display === 'block') {
             form.style.display = 'none';
         } else {
@@ -55,36 +52,57 @@ document.addEventListener('DOMContentLoaded', () => {
         }
 	};
 
-	// Attach a submit event listener to each edit form on the page
+	// Listens for submit event on each thumbnail's corresponding editing form
 	editPostForm.forEach((form) => {
 		form.addEventListener('submit', async (event) => {
-			// Prevent the default form submission behavior
 			event.preventDefault();
 
-			// Extracts unique ID of the post associated with the thumbnail. 
+			// Extracts unique ID of the post the dashboard thumbnail belongs to
 			const postId = form.getAttribute('data-post-id');
 			const title = document.querySelector(`#post-title-${postId}`).value.trim();
 			const content = document.querySelector(`#post-content-${postId}`).value.trim();
 
-			// Check if both title and content are provided
+			// If both `title` and `content` are provided
 			if (title && content) {
-				// Send a PUT request to update the post
+				// Send PUT request to update blog post with the new edits
 				const response = await fetch(`/api/posts/${postId}`, {
 					method: 'PUT',
 					body: JSON.stringify({ title, content }),
 					headers: { 'Content-Type': 'application/json' }
 				});
 
-				// Reload the page to show the updated post if the request was successful
+				// Reload page to reflect that the blog was updated successfully
 				if (response.ok) {
 					document.location.reload();
 				} else {
-					// Alert the user if there was an error updating the post
 					alert('Failed to update post.');
 				}
 			}
 		});
 	});
 
-	// Additional event listeners for edit/delete actions can be added here
+    // Listens for click event on each thumbnail's corresponding delete button
+	deletePostButton.forEach(button => {
+        button.addEventListener('click', async (event) => {
+            event.preventDefault();
+
+            if (!confirm("Are you sure you want to delete this post?")) return;
+
+            // Extract unique ID for the Post the delete button belongs to
+            const postId = button.getAttribute('data-post-id');
+
+            // Send a DELETE request to remove the post
+            const response = await fetch(`/api/posts/${postId}`, {
+                method: 'DELETE',
+                headers: { 'Content-Type': 'application/json' }
+            });
+
+            // Reload page to reflect that blog post was removed successfully
+            if (response.ok) {
+                document.location.reload();
+            } else {
+                alert('Failed to delete post.');
+            }
+        });
+    });
 });

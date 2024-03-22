@@ -1,7 +1,7 @@
 document.addEventListener('DOMContentLoaded', () => {
-    const signupForm = document.querySelector('#signup-form');
+    const signUpForm = document.querySelector('#signup-form');
 
-    signupForm.addEventListener('submit', async (event) => {
+    signUpForm.addEventListener('submit', async (event) => {
         event.preventDefault();
 
         const username = document.querySelector('#username').value.trim();

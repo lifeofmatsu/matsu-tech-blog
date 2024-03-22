@@ -12,9 +12,11 @@
         
         <button type="submit">Save Edits</button>
     </form>
+
+    <button class="deletePostButton" data-post-id="{{id}}">Delete Post</button>
 </li>
 
 {{!-- 
-The `data-post-id` is in the broader <li> context, rather than the <form> context. 
-This is to associate it with the overall thumbnail, not simply the `editPostForm`. 
+The `data-post-id` attribute is in the broader <li> context, rather than the <form> context. 
+This is to associate the attribute with the overall thumbnail, not simply the `editPostForm`. 
 --}}
