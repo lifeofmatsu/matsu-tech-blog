@@ -2,6 +2,8 @@ const express = require('express');
 const session = require('express-session');
 const exphbs = require('express-handlebars');
 const SequelizeStore = require('connect-session-sequelize')(session.Store);
+const homeController = require('./controllers/homeController');
+
 
 const sequelize = require('./config/connection');
 const helpers = require('./utils/helpers');
@@ -38,6 +40,9 @@ app.use(express.static('public'));
 // Use the aggregated routes from the routes directory
 app.use('/', homeRoutes);
 app.use('/api', apiRoutes); // User, post, and comment routes
+
+// app.get('/login', homeController.login);
+// app.get('/signup', homeController.signup);
 
 // Sync sequelize models to the database, then start the server
 sequelize.sync({ force: false }).then(() => {

@@ -40,6 +40,15 @@ const homeController = {
 			console.error('Error rendering login page:', error);
 			res.status(500).send('Error rendering login page');
 		}
+	},
+
+	signup: async (req, res) => {
+		try {
+			res.redner('signup');
+		} catch (error) {
+			console.error('Error rendering registration page:', error);
+			res.status(500).send('Error rendering registration page');
+		}
 	}
 };
 

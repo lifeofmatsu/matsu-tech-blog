@@ -11,5 +11,7 @@ router.get('/', homeController.dashboard);
 // Retrieve login page for display
 router.get('/', homeController.login);
 
+router.get('/', homeController.signup);
+
 
 module.exports = router;
