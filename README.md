@@ -25,40 +25,28 @@ Matsu Tech Blog is a dynamic web application that allows developers to share the
 ## Installation
 
 1. Clone the repository:
-git clone https://github.com/your-username/matsu-tech-blog.git
+`git clone https://github.com/your-username/matsu-tech-blog.git`
 
-css
-Copy code
 2. Navigate to the project directory:
-cd matsu-tech-blog
+`cd matsu-tech-blog`
 
-markdown
-Copy code
 3. Install the necessary dependencies:
-npm install
+`npm install`
 
-markdown
-Copy code
 4. Create a `.env` file in the root directory and add the following environment variables:
-DB_NAME='techblog_db'
+`DB_NAME='techblog_db'
 DB_USER='yourDatabaseUsername'
 DB_PWD='yourDatabasePassword'
-DB_SECRET='yourSessionSecret'
+DB_SECRET='yourSessionSecret'`
 
-markdown
-Copy code
 5. Initialize the database:
-mysql -u root -p
+`mysql -u root -p
 CREATE DATABASE techblog_db;
-exit;
+exit;`
 
-markdown
-Copy code
 6. Start the application:
-npm start
+`npm start`
 
-markdown
-Copy code
 7. Visit `http://localhost:3001` in your browser to view the application.
 
 ## Usage
